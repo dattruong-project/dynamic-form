@@ -1,0 +1,9 @@
+.ant-input {
+    margin-top: 10px;
+}
+
+#next-field, #submit-field {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px
+}
