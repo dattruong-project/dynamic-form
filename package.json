@@ -1,7 +1,7 @@
 {
   "name": "dynamic-builder-form",
   "description": "Dynamic Form Builder For Enterprise",
-  "version": "0.1.5",
+  "version": "0.1.6-beta",
   "dependencies": {
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.67",
@@ -9,7 +9,6 @@
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
     "antd": "^5.12.5",
-    "axios": "^1.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
@@ -32,6 +31,10 @@
   },
   "devDependencies": {
     "vite": "^5.0.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dattruong-project/dynamic-form"
   },
   "main": "./dist/index.d.ts",
   "module": "./dist/react-dynamic-form.js",
