@@ -7,7 +7,7 @@ export interface FormMeta {
   [key: string]: unknown;
 }
 
-export enum ValidationRule {
+export enum ValidateRule {
   required = "required",
   min = "minLength",
   max = "maxLength",
@@ -16,7 +16,7 @@ export enum ValidationRule {
 
 export interface Validation {
   key: string;
-  type?: ValidationRule;
+  type?: ValidateRule;
   message: string;
   value?: unknown;
   watch?: UseFormWatch<FieldValues>

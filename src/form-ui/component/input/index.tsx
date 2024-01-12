@@ -1,6 +1,7 @@
 import React from "react";
 import { Input, InputProps } from "antd";
 import { FormFieldProps } from "../../../form-builder/components";
+import { useForm } from "../../../form-controller";
 
 interface InputComponentProps {
   value: any;
@@ -26,7 +27,7 @@ const InputComponent: React.FC<InputType> = ({
   prefix,
   ...rest
 }) => {
-
+  
   return (
         <Input
           {...rest}
