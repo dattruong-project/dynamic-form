@@ -13,10 +13,10 @@ interface SelectComponentProps {
 
 type SelectType = SelectComponentProps & FormFieldProps & SelectProps;
 
-const SelectComponent: React.FC<SelectType> = ({ id, value, disabledField, defaultOptions, onChange, onBlur, selectStyle,
-    isValidating,
-    propRef,
+const SelectComponent: React.FC<SelectType> = ({ id, value, disabled, defaultOptions, onChange, onBlur, selectStyle,
     error,
+    propRef,
+    disabledField,
     ...rest }) => {
 
     const [defaultValue, setDefault] = useState(defaultOptions);

@@ -1,29 +1,21 @@
 import React from "react";
 import { Input, InputProps } from "antd";
-import { FormFieldProps } from "../../../form-builder/components";
-import { useForm } from "../../../form-controller";
 
 interface InputComponentProps {
-  value: any;
-  id: string;
   onChange: (value: any) => void;
   onBlur: (value: any) => void;
-  disabledField: boolean;
   placeholder: string;
-  error: any;
 }
 
-type InputType = FormFieldProps & InputProps & InputComponentProps;
+type InputType = InputProps & InputComponentProps;
 
 const InputComponent: React.FC<InputType> = ({
   value,
   type,
   onChange,
   onBlur,
-  disabledField,
+  disabled,
   placeholder,
-  isValidating,
-  propRef,
   prefix,
   ...rest
 }) => {
@@ -34,7 +26,7 @@ const InputComponent: React.FC<InputType> = ({
           value={value}
           onBlur={onBlur}
           onChange={onChange}
-          disabled={disabledField}
+          disabled={disabled}
           prefix={prefix}
           placeholder={placeholder}
         />

@@ -11,7 +11,6 @@ interface RangeDateTimePickerComponentProps extends RangeDateTimePickerProps {
     id: string;
     onChange: (value: any) => void;
     onBlur: (value: any) => void;
-    disabledField: boolean;
     placeholder: [string, string];
     error: any;
     dateFormat?: string;
@@ -26,7 +25,6 @@ const RangeDateTimePickerComponent: React.FC<RangeDateTimePickerType> = ({
     onChange,
     onBlur,
     placeholder,
-    disabledField,
     dateFormat,
     maxDate,
     minDate,
@@ -47,7 +45,6 @@ const RangeDateTimePickerComponent: React.FC<RangeDateTimePickerType> = ({
                 defaultValue={value}
                 onChange={onChange}
                 onBlur={onBlur}
-                disabled={disabledField}
                 format={dateFormat}
                 disabledDate={disabledDate}
                 placeholder={placeholder}

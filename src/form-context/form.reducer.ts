@@ -115,6 +115,7 @@ export const reducer = (state = initialState, action: FormAction) => {
                 },
             };
         }
+
         case PREVIOUS_SESSION: {
             if (!checkFormId(action)) {
                 return state;
@@ -149,6 +150,7 @@ export const reducer = (state = initialState, action: FormAction) => {
                 },
             };
         }
+        
         default:
             return state;
     }

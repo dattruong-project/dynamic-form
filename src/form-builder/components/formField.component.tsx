@@ -12,19 +12,13 @@ export type FormFieldProps = {
   error?: ErrorOption;
   errors?: FieldErrors<FieldValues>;
   propRef?: Ref;
-  label?: string;
   onClick?: (event: any) => void;
-  isValidating?: boolean;
   formId?: string;
+  label?: string;
   data?: any;
-  setValue?: UseFormSetValue<FieldValues>,
-  getValues?: UseFormGetValues<FieldValues>,
-  resetField?: UseFormResetField<FieldValues>,
-  reset?: UseFormReset<FieldValues>,
-  sessionByIds?: string[]
 }
 
-export function FormField({ id, fieldType, data, resetField, reset, setValue,error, getValues, formId, dictionary, ...props }: FormFieldProps) {
+export function FormField({ id, fieldType, data, error, formId, dictionary, ...props }: FormFieldProps) {
   const Field = dictionary[fieldType];
   if (!Field) return null;
 

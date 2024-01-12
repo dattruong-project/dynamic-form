@@ -7,7 +7,6 @@ import { FormFieldProps } from "../../../form-builder";
 export interface ButtonProps extends FormFieldProps {
     id: string,
     label: string,
-    disabledField?: boolean,
     buttonStyle?: CSSProperties,
     type?: ButtonHTMLType,
     onClick: MouseEventHandler<any> | undefined;

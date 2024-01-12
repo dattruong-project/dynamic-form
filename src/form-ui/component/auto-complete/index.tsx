@@ -3,30 +3,24 @@ import { AutoComplete, InputProps } from "antd";
 import { FormFieldProps } from "../../../form-builder";
 
 interface AutocompleteInputProps {
-  value: any;
+  data: any;
   id: string;
   onChange: (value: any) => void;
   onBlur: (value: any) => void;
-  disabledField: boolean;
   placeholder: string;
-  error: any;
   defaultValue: any;
 }
 
-type AutocompleteInputType = FormFieldProps & InputProps & AutocompleteInputProps;
+type AutocompleteInputType =  InputProps & AutocompleteInputProps & FormFieldProps;
 
 const AutoCompleteComponent: React.FC<AutocompleteInputType> = ({
-  value,
+  data,
   defaultValue,
   id,
   onChange,
   onBlur,
   disabledField,
   placeholder,
-  error,
-  isValidating,
-  propRef,
-  data,
   prefix,
   ...rest
 }) => {
@@ -34,7 +28,7 @@ const AutoCompleteComponent: React.FC<AutocompleteInputType> = ({
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   const handleChange = (selectValue) => {
-    const updatedOptions = [...value];
+    const updatedOptions = [...data];
     const optionValue = selectValue;
     const updatedOptionsWithSelection = updatedOptions.map((option) => ({
       ...option,
@@ -44,21 +38,20 @@ const AutoCompleteComponent: React.FC<AutocompleteInputType> = ({
     onChange(updatedOptionsWithSelection);
   };
 
-  console.log(value);
   return (
     <AutoComplete
       {...rest}
       style={{ width: "100%" }}
       id={id}
+      disabled={disabledField}
       value={selectedValue}
       onChange={handleChange}
       onBlur={onBlur}
       filterOption={(inputValue, option: any) => {
         return option?.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
       }}
-      disabled={disabledField}
       placeholder={placeholder}
-      options={value}
+      options={data}
     />
   );
 };

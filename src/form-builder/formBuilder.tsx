@@ -66,12 +66,10 @@ export function FormBuilder({
 
   const {
     handleSubmit,
-    formState: { isValid, isValidating, isSubmitting, errors },
+    formState: { isValid, isSubmitting, errors },
     control,
     getValues,
     reset,
-    setValue,
-    resetField,
     watch,
     setFocus,
   } = context;
@@ -159,9 +157,7 @@ export function FormBuilder({
                             return (
                               <FormField
                                 id={id}
-                                reset={reset}
                                 formId={formId}
-                                resetField={resetField}
                                 data={data}
                                 disabledField={disabledField}
                                 fieldType={type}
@@ -169,10 +165,7 @@ export function FormBuilder({
                                 dictionary={dictionary}
                                 error={errors?.[id]}
                                 errors={errors}
-                                setValue={setValue}
-                                getValues={getValues}
                                 propRef={ref}
-                                isValidating={isValidating}
                                 {...meta}
                                 {...fieldRest}
                               />

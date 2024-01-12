@@ -9,7 +9,7 @@ interface CheckBoxComponentProps {
     defaultValue: any;
 }
 
-type CheckBoxType = CheckBoxComponentProps & FormFieldProps & CheckboxProps;
+type CheckBoxType = FormFieldProps & CheckBoxComponentProps & CheckboxProps;
 
 const CheckBoxComponent: React.FC<CheckBoxType> = (props) => {
     const {
@@ -19,9 +19,6 @@ const CheckBoxComponent: React.FC<CheckBoxType> = (props) => {
         disabledField,
         defaultValue,
         onChange,
-        setValue,
-        getValues,
-        isValidating,
         propRef,
         ...rest
     } = props;
@@ -43,8 +40,8 @@ const CheckBoxComponent: React.FC<CheckBoxType> = (props) => {
                 {...rest}
                 defaultValue={selectedValue}
                 options={value}
-                disabled={disabledField}
                 onChange={handleChange}
+                disabled={disabledField}
             />
     );
 };

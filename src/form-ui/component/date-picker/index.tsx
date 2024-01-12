@@ -10,7 +10,6 @@ interface DatePickerComponentProps {
     id: string;
     onChange: (value: any) => void;
     onBlur: (value: any) => void;
-    disabledField: boolean;
     placeholder: string;
     error: any;
     dateFormat?: string,
@@ -27,7 +26,7 @@ const DatePickerComponent: React.FC<DatePickerType> = ({
     onChange,
     onBlur,
     placeholder,
-    disabledField,
+    propRef,
     dateFormat,
     maxDate,
     minDate,
@@ -50,7 +49,6 @@ const DatePickerComponent: React.FC<DatePickerType> = ({
                 defaultValue={value}
                 onChange={onDateChange}
                 onBlur={onBlur}
-                disabled={disabledField}
                 format={dateFormat}
                 disabledDate={disabledDate}
                 placeholder={placeholder}

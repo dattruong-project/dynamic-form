@@ -3,7 +3,7 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { FormBuilderProps } from "../../../form-builder/formBuilder";
 import { useFormsDispatch, useFormsState } from "../../../form-context";
 import { setSession } from "../../../form-context/form.actions";
-import { SubmitHandler, FieldValues } from "../../../form-controller";
+import { SubmitHandler, FieldValues, useFormState } from "../../../form-controller";
 import { MasterForm } from "../../form";
 
 type TabPosition = "left" | "right" | "top" | "bottom";
@@ -60,7 +60,7 @@ const TabBarComponent: FC<TabBarType> = ({ formId, extraValidation, componentDid
     activeKey={key}
     onChange={onChangeCallBack}
     {...rest} />;
-
+    
   const form = () => <MasterForm extraValidation={extraValidation} componentDidUpdate={componentDidUpdate} defaultValues={defaultValues} componentDidMount={componentDidMount} componentWillUnMount={componentWillUnMount} dictionary={dictionary} formId={formId} schema={schema} onSubmit={onSubmit} {...rest} />;
 
   switch (tabPosition) {

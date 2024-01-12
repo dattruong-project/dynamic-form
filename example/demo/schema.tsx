@@ -14,5 +14,5 @@ export const schema: FormSchema = {
         ...session01,
         ...session02,
     },
-    sessionsById: [session01Id,session02Id]
+    sessionsById: [session02Id]
 }
