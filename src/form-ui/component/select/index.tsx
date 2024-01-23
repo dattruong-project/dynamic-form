@@ -17,6 +17,9 @@ const SelectComponent: React.FC<SelectType> = ({ id, value, disabled, defaultOpt
     error,
     propRef,
     disabledField,
+    componentDidMount,
+    componentDidUpdate,
+    componentWillUnMount,
     ...rest }) => {
 
     const [defaultValue, setDefault] = useState(defaultOptions);

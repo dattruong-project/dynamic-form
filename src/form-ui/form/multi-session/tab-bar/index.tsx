@@ -1,25 +1,26 @@
 import { Flex, Tabs, TabsProps } from "antd";
 import { FC, useEffect, useMemo, useState } from "react";
-import { FormBuilderProps } from "../../../form-builder/formBuilder";
-import { useFormsDispatch, useFormsState } from "../../../form-context";
-import { setSession } from "../../../form-context/form.actions";
-import { SubmitHandler, FieldValues, useFormState } from "../../../form-controller";
-import { MasterForm } from "../../form";
+import { FormBuilderProps } from "../../../../form-builder/formBuilder";
+import { useFormsDispatch, useFormsState } from "../../../../form-context";
+import { setSession } from "../../../../form-context/form.actions";
+import { SubmitHandler, FieldValues } from "../../../../form-controller";
+import { MasterForm } from "../..";
 
 type TabPosition = "left" | "right" | "top" | "bottom";
 
-export interface TabBarComponentProps extends TabsProps {
+export interface TabBarFormProps {
   formId: string;
   schema: any;
   onChange?: (activeKey: string) => void;
   onSubmit: SubmitHandler<FieldValues>;
   tabPosition?: TabPosition;
+  tabProps?: TabsProps
 }
 
-type TabBarType = TabBarComponentProps & FormBuilderProps;
+type TabBarType = TabBarFormProps & FormBuilderProps;
 
-const TabBarComponent: FC<TabBarType> = ({ formId, extraValidation, componentDidMount,
-  componentDidUpdate, componentWillUnMount, defaultValues, dictionary, schema, onChange, onSubmit, tabPosition, children, ...rest }) => {
+const TabBarForm: FC<TabBarType> = ({ formId, extraValidation, componentDidMount,
+  componentDidUpdate, componentWillUnMount, defaultValues, dictionary, schema, onChange, onSubmit, tabPosition,tabProps, ...rest }) => {
   const dispatch = useFormsDispatch();
   const state = useFormsState() as any;
   const [key, setKey] = useState("0");
@@ -59,7 +60,7 @@ const TabBarComponent: FC<TabBarType> = ({ formId, extraValidation, componentDid
     items={tabsItems}
     activeKey={key}
     onChange={onChangeCallBack}
-    {...rest} />;
+    {...tabProps} />;
     
   const form = () => <MasterForm extraValidation={extraValidation} componentDidUpdate={componentDidUpdate} defaultValues={defaultValues} componentDidMount={componentDidMount} componentWillUnMount={componentWillUnMount} dictionary={dictionary} formId={formId} schema={schema} onSubmit={onSubmit} {...rest} />;
 
@@ -95,8 +96,8 @@ const TabBarComponent: FC<TabBarType> = ({ formId, extraValidation, componentDid
   }
 };
 
-TabBarComponent.defaultProps = {
+TabBarForm.defaultProps = {
   tabPosition: "top"
 }
 
-export default TabBarComponent;
+export default TabBarForm;

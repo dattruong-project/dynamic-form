@@ -1,5 +1,6 @@
 import React from "react";
 import { Input, InputProps } from "antd";
+import { FormFieldProps } from "../../../form-builder";
 
 interface InputComponentProps {
   onChange: (value: any) => void;
@@ -7,26 +8,30 @@ interface InputComponentProps {
   placeholder: string;
 }
 
-type InputType = InputProps & InputComponentProps;
+type InputType = InputProps & InputComponentProps & FormFieldProps;
 
 const InputComponent: React.FC<InputType> = ({
   value,
   type,
   onChange,
   onBlur,
-  disabled,
+  disabledField,
   placeholder,
   prefix,
+  propRef,
+  componentDidMount,
+  componentDidUpdate,
+  componentWillUnMount,
   ...rest
 }) => {
-  
+ 
   return (
         <Input
           {...rest}
           value={value}
           onBlur={onBlur}
           onChange={onChange}
-          disabled={disabled}
+          disabled={disabledField}
           prefix={prefix}
           placeholder={placeholder}
         />

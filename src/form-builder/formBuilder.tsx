@@ -8,10 +8,8 @@ import { FormField } from './components/formField.component';
 import { SubmitField } from './components/submitField.component';
 
 import { filterDependentsFieldsById } from './utils/conditionalFields.utils';
-import { useFormsState } from '../form-context/form.context';
 import { FieldRules, getFieldRules } from './utils/validation.utils';
-import { SubmitHandler, FieldValues, DefaultValues, ValidationMode, useForm, FormProvider, Controller, Noop } from '../form-controller';
-import { Col, Flex, Row } from 'antd';
+import { SubmitHandler, FieldValues, DefaultValues, ValidationMode, useForm, FormProvider, Controller } from '../form-controller';
 
 const EMPTY_OBJECT = {} as const;
 const NOOP = () => null;
@@ -31,7 +29,7 @@ export interface FormBuilderProps {
   debug?: boolean;
   componentWillUnMount?: Function;
   componentDidMount?: Function;
-  componentDidUpdate?: Function
+  componentDidUpdate?: Function;
 }
 
 export function FormBuilder({
@@ -53,7 +51,7 @@ export function FormBuilder({
 
   const typesAllowed = React.useMemo(() => Object.keys(dictionary || EMPTY_OBJECT), [dictionary]);
 
-  const { fields, fieldsById, sessionsById, submitLabel, hiddenButton, gutter } = React.useMemo(
+  const { fields, fieldsById, sessionsById, submitLabel, hiddenButton } = React.useMemo(
     () => getSchemaInfo(schema, typesAllowed, currentSessionIndex),
     [currentSessionIndex, schema, typesAllowed],
   );
@@ -69,23 +67,31 @@ export function FormBuilder({
     formState: { isValid, isSubmitting, errors },
     control,
     getValues,
-    reset,
     watch,
     setFocus,
   } = context;
 
-  const state = useFormsState() as any;
+  const getFieldValidationRules = (fieldId) => {
+    const field = fields?.[fieldId];
+
+    if (!field || !field.validation) {
+      return {};
+    }
+
+    return {
+      [fieldId]: getFieldRules({ validation: field.validation, extraValidation, watch }),
+    };
+  };
 
   const validationRulesById = React.useMemo(
     () =>
       fieldsById.reduce((accumulator, fieldId) => {
-        const validation = fields?.[fieldId]?.validation || EMPTY_OBJECT;
         return {
           ...accumulator,
-          [fieldId]: getFieldRules({ validation, extraValidation, watch }),
+          ...getFieldValidationRules(fieldId),
         };
       }, {} as { [key: string]: FieldRules }),
-    [extraValidation, fields, fieldsById, watch],
+    [extraValidation, fields, fieldsById, watch]
   );
 
   React.useEffect(() => {
@@ -99,18 +105,6 @@ export function FormBuilder({
   React.useEffect(() => {
     componentDidUpdate(context);
   }, [context.formState.defaultValues]);
-
-  //Binding Data
-  React.useEffect(() => {
-    const dataState = state[formId]?.data;
-    dataState && reset(dataState, { keepErrors: true });
-  }, [state[formId]?.data]);
-
-  //Binding error
-  React.useEffect(() => {
-    const error = state[formId]?.error;
-    error && reset(error, { keepErrors: true });
-  }, [state[formId]?.error]);
 
   const filteredFields = filterDependentsFieldsById({
     fieldsById,
@@ -137,68 +131,60 @@ export function FormBuilder({
           onKeyDown={(e) => checkKeyDown(e)}
           {...formProps}
           onSubmit={handleSubmit(onSubmit)}>
-          <Flex style={{ height: "100%", flexDirection: "column" }}>
             <Stepper currentSessionIndex={currentSessionIndex}>
-              {sessionsById?.map((stepId) => (
-                <Row key={stepId} gutter={gutter}>
-                  {filteredFields?.map((fieldId) => {
-                    const { type, id, disabledField, meta, validation, data, grid } = fields[fieldId];
-                    const { offset, xs, sm, md, lg, flex, xl, xxl } = grid || {};
-
-                    return (
-                      <Col style={{width:"100%"}} flex={flex} offset={offset} xs={xs} sm={sm} md={md} lg={lg} xl={xl} xxl={xxl} key={id}>
-                        <Controller
-                          name={id}
-                          control={control}
-                          defaultValue={data}
-                          rules={validationRulesById[fieldId]}
-                          render={({ field }) => {
-                            const { ref, ...fieldRest } = field;
-                            return (
-                              <FormField
-                                id={id}
-                                formId={formId}
-                                data={data}
-                                disabledField={disabledField}
-                                fieldType={type}
-                                validation={validation}
-                                dictionary={dictionary}
-                                error={errors?.[id]}
-                                errors={errors}
-                                propRef={ref}
-                                {...meta}
-                                {...fieldRest}
-                              />
-                            );
-                          }}
-                        />
-                      </Col>
-                    );
-                  })}
-                </Row>
-              ))}
-            </Stepper>
-
+            
+            {sessionsById?.map((sessionId) => (
+              <React.Fragment key={sessionId}>
+                {filteredFields?.map((fieldId) => {
+                  const { type, id, disabledField, meta, validation, data, componentDidMount, componentDidUpdate, componentWillUnMount } = fields?.[fieldId];
+                  return (
+                    <Controller
+                      key={id}
+                      name={id}
+                      control={control}
+                      defaultValue={data}
+                      rules={validationRulesById[fieldId]}
+                      render={({ field }) => {
+                        const { ref, ...fieldRest } = field;
+                        return (
+                          <FormField
+                            id={id}
+                            formId={formId}
+                            data={data}
+                            disabledField={disabledField}
+                            fieldType={type}
+                            validation={validation}
+                            dictionary={dictionary}
+                            error={errors?.[id]}
+                            errors={errors}
+                            propRef={ref}
+                            componentDidMount={() => componentDidMount && componentDidMount(context)}
+                            componentDidUpdate={() => componentDidUpdate && componentDidUpdate(context)}
+                            componentWillUnMount={() => componentWillUnMount && componentWillUnMount(context)}
+                            {...meta}
+                            {...fieldRest}
+                          />
+                        );
+                      }}
+                    />
+                  );
+               })}
+              </React.Fragment>
+            ))}
+          </Stepper>
             {!hiddenButton && (
-              <Row>
-                <Col span={24}>
-                  <SubmitField
-                    formId={formId}
-                    dictionary={dictionary}
-                    submitDisabled={isFormSessionValid}
-                    nextDisabled={isFormSessionValid}
-                    isLastSession={isLastSession}
-                    submitLabel={submitLabel}
-                    getValues={getValues}
-                    onNextSession={onNextSession}
-                  />
-                </Col>
-
-              </Row>
+              <SubmitField
+                formId={formId}
+                dictionary={dictionary}
+                submitDisabled={isFormSessionValid}
+                nextDisabled={isFormSessionValid}
+                isLastSession={isLastSession}
+                submitLabel={submitLabel}
+                getValues={getValues}
+                onNextSession={onNextSession}
+              />
             )}
-          </Flex>
         </form>
-
       </FormProvider>
     </>
   );

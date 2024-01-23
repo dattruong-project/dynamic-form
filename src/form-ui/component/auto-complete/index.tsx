@@ -22,6 +22,9 @@ const AutoCompleteComponent: React.FC<AutocompleteInputType> = ({
   disabledField,
   placeholder,
   prefix,
+  componentDidMount,
+  componentDidUpdate,
+  componentWillUnMount,
   ...rest
 }) => {
 

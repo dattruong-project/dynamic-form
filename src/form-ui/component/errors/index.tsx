@@ -7,7 +7,8 @@ export type MultiErrorsProps = {
   errors?: FieldErrors;
 };
 
-const MultiErrorsComponent: FC<MultiErrorsProps> = ({ errors }) => {
+const MultiErrorsComponent: FC<MultiErrorsProps> = ({errors}) => {
+
   return (
     <>
       {errors && (

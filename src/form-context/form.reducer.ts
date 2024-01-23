@@ -71,7 +71,6 @@ export const reducer = (state = initialState, action: FormAction) => {
         }
 
         case UPDATE_FORM_DATA: {
-
             const formState = state?.[action.formId];
 
             if (!formState) return state;
@@ -88,7 +87,6 @@ export const reducer = (state = initialState, action: FormAction) => {
         }
 
         case NOTIFY_ERROR: {
-
             const formState = state?.[action.formId];
 
             if (!formState) return state;
@@ -115,7 +113,7 @@ export const reducer = (state = initialState, action: FormAction) => {
                 },
             };
         }
-
+        
         case PREVIOUS_SESSION: {
             if (!checkFormId(action)) {
                 return state;
@@ -150,7 +148,6 @@ export const reducer = (state = initialState, action: FormAction) => {
                 },
             };
         }
-        
         default:
             return state;
     }

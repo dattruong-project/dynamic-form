@@ -1,7 +1,7 @@
 {
   "name": "dynamic-builder-form",
   "description": "Dynamic Form Builder For Enterprise",
-  "version": "0.1.8",
+  "version": "0.1.12",
   "dependencies": {
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.67",

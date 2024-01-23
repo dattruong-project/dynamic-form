@@ -19,6 +19,9 @@ const CheckBoxComponent: React.FC<CheckBoxType> = (props) => {
         disabledField,
         defaultValue,
         onChange,
+        componentDidMount,
+        componentWillUnMount,
+        componentDidUpdate,
         propRef,
         ...rest
     } = props;

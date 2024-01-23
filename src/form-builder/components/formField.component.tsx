@@ -1,4 +1,5 @@
-import { ErrorOption, FieldErrors, FieldValues, Ref, UseFormGetValues, UseFormReset, UseFormResetField, UseFormSetValue } from '../../form-controller';
+import { useEffect } from 'react';
+import { ErrorOption, FieldErrors, FieldValues, Ref, UseControllerReturn, UseFormReturn, useFormContext } from '../../form-controller';
 import { Layout } from '../../form-ui/component/general';
 import { Dictionary, Validations } from '../types';
 
@@ -16,13 +17,49 @@ export type FormFieldProps = {
   formId?: string;
   label?: string;
   data?: any;
+  control?: UseControllerReturn;
+  componentDidMount?: (formContext?: UseFormReturn) => void;
+  componentWillUnMount?: (formContext?: UseFormReturn) => void;
+  componentDidUpdate?: (formContext?: UseFormReturn) => void;
 }
 
-export function FormField({ id, fieldType, data, error, formId, dictionary, ...props }: FormFieldProps) {
+export const FormField: React.FC<FormFieldProps> = ({
+  id,
+  fieldType,
+  data,
+  error,
+  formId,
+  dictionary,
+  ...props
+}) => {
+  const context = useFormContext();
+
+  useEffect(() => {
+    if (props.componentDidMount) {
+      props.componentDidMount();
+    }
+
+    return () => {
+      if (props.componentWillUnMount) {
+        props.componentWillUnMount();
+      }
+    };
+  }, []); 
+
+  useEffect(() => {
+    if (props.componentDidUpdate) {
+      props.componentDidUpdate();
+    }
+  }, [context.getValues(id)]);
+
   const Field = dictionary[fieldType];
+
   if (!Field) return null;
 
-  return <Layout error={error} id={id}>
-    <Field data-testid={id} id={id} type={fieldType} {...props} />
-  </Layout>
-}
+  return (
+    <Layout error={error}>
+      <Field data-testid={id} id={id} type={fieldType} {...props} />
+    </Layout>
+  );
+};
+

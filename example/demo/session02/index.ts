@@ -1,10 +1,10 @@
 import { FormSessions } from "../../../src";
-import { agreeLicenseId, session01Id, session02Id } from "../constants";
+import { agreeLicenseId, session02Id } from "../constants";
 
 export const session02: FormSessions = {
      [session02Id]: {
         fieldsById: [agreeLicenseId],
-        id: session01Id,
+        id: session02Id,
         submit: {
             label: 'Finish',
         },
@@ -14,6 +14,5 @@ export const session02: FormSessions = {
                 disabled: true
             }
         },
-        gutter: 16
     }
 }

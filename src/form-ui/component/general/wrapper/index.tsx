@@ -16,10 +16,9 @@ export const Layout: React.FC<LayoutProps> = ({
   containerStyle,
   error,
   errorStyle,
-  id,
 }) => {
   return (
-    <div style={containerStyle} id={id}>
+    <div style={containerStyle}>
       {children}
       {error && <ErrorMessage style={errorStyle}>{error.message}</ErrorMessage>}
     </div>

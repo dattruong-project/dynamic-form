@@ -7,11 +7,9 @@ import InputComponent from "./input";
 import RadioComponent from "./radio";
 import RangeDateTimePickerComponent from "./range-picker";
 import SelectComponent from "./select";
-import TabBarComponent from "./tab-bar";
 
 export {
     AutoCompleteComponent,SubmitButton,CheckBoxComponent,
     DatePickerComponent,MultiErrorsComponent,InputComponent,
-    RadioComponent,RangeDateTimePickerComponent,SelectComponent,
-    TabBarComponent
+    RadioComponent,RangeDateTimePickerComponent,SelectComponent
 }

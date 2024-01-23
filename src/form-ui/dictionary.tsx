@@ -12,4 +12,6 @@ export const dictionary: Dictionary = {
     dateTimePicker: DatePickerComponent,
     autoComplete: AutoCompleteComponent,
     rangeDateTimePicker: RangeDateTimePickerComponent,
+    card: CardComponent,
+    table: TableComponent
 };

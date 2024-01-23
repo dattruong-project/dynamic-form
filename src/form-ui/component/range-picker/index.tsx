@@ -28,6 +28,9 @@ const RangeDateTimePickerComponent: React.FC<RangeDateTimePickerType> = ({
     dateFormat,
     maxDate,
     minDate,
+    componentDidMount,
+    componentDidUpdate,
+    componentWillUnMount,
     ...rest
 }) => {
 

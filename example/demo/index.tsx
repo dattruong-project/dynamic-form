@@ -1,13 +1,13 @@
 import React from "react";
-import { TabBarComponent, dictionary } from "../../src";
 import { exampleForm } from "./constants";
 import { schema } from "./schema";
+import { TabBarForm, dictionary } from "../../src";
 import "./demo.css";
 
 const DemoUI = () => {
 
     return (
-        <TabBarComponent dictionary={dictionary} schema={schema} formId={exampleForm} onSubmit={(values) => {
+        <TabBarForm dictionary={dictionary} schema={schema} formId={exampleForm} onSubmit={(values) => {
             console.log(values)
         }}/>
     );

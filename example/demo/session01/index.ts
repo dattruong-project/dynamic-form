@@ -1,8 +1,8 @@
+import { FormSessions } from "../../../src";
 import { doublePasswordId, passwordId, session01Id, usernameId } from "../constants";
 
-export const session01 = {
+export const session01: FormSessions = {
      [session01Id]: {
-        fieldsById: [usernameId, passwordId, doublePasswordId],
         id: session01Id,
         submit: {
             label: 'onClick',
@@ -12,7 +12,6 @@ export const session01 = {
                 label: "Session 01"
             }
         },
-        // hiddenButton: true,
-        gutter: 12
+        fieldsById: [usernameId, passwordId, doublePasswordId]
     }
 }

@@ -30,6 +30,9 @@ const DatePickerComponent: React.FC<DatePickerType> = ({
     dateFormat,
     maxDate,
     minDate,
+    componentDidMount,
+    componentDidUpdate,
+    componentWillUnMount,
     ...rest
 }) => {
 

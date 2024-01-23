@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { FieldNamesMarkedBoolean, FieldValues, UseFormWatch } from '../form-controller/types';
+import { FieldNamesMarkedBoolean, FieldValues, UseFormReturn, UseFormWatch } from '../form-controller/types';
+import { FormFieldProps } from './components';
 
 export type DirtyFields = FieldNamesMarkedBoolean<FieldValues>;
 
@@ -40,7 +41,7 @@ export interface Option {
   disabled?: boolean;
 }
 
-type Grid = {
+export type Grid = {
   xs? : number;
   sm? : number;
   md? : number;
@@ -48,7 +49,8 @@ type Grid = {
   xl? : number;
   xxl? : number;
   flex?: number;
-  offset?: number
+  offset?: number;
+  span?: number
 }
 
 export interface FormField {
@@ -58,13 +60,35 @@ export interface FormField {
   meta?: FormMeta | undefined;
   disabledField?: boolean;
   dependsOn?: Array<string | DependsOnObject>;
-  grid?: Grid;
-  validation?: Validations | undefined
+  validation?: Validations | undefined;
+  componentDidMount?: (context?: UseFormReturn) => void;
+  componentWillUnMount?: (context?: UseFormReturn) => void;
+  componentDidUpdate?: (context?: UseFormReturn) => void;
 }
 
 export interface FormFields {
   [key: string]: FormField;
 }
+
+// export type ColsGroup = {
+//   id: string;
+//   cols: ColDefinition[];
+// };
+
+// export type ColDefinition = {
+//   id: string;
+//   grid?: Grid;
+//   order?: number; 
+// }
+
+// export type GridDefinition = {
+//   rows?: {
+//     id: string
+//     colsGroup: ColsGroup,
+//     gutter?: number
+//   }[],
+//   gridsByOrder?: string[]; 
+// }
 
 export interface FormSession {
   id: string;
@@ -74,15 +98,7 @@ export interface FormSession {
   };
   meta?: FormMeta,
   hiddenButton?: boolean,
-  gutter?: number;
-}
-
-export interface FormCell {
-  fieldId: string;
-  col: number;
-  flex: number;
-  row: number;
-  rowspan:number
+  // gridDefinition?: GridDefinition
 }
 
 export interface FormSessions {
@@ -108,7 +124,11 @@ export enum DictionaryComponentType {
   Submit = "submit",
   AutoComplete = "autoComplete",
   DateTimePicker = "dateTimePicker",
-  RangeDateTimePicker = "rangeDateTimePicker"
+  RangeDateTimePicker = "rangeDateTimePicker",
+  ListView = "listView",
+  Card = "card",
+  Row = "row",
+  Col = "col"
 }
 
 export type Dictionary = {

@@ -16,7 +16,7 @@ export const sanitizeFieldsById = (fieldsById: string[], fields: FormFields, typ
     submitLabel: string;
     sessionsById: string[];
     hiddenButton: boolean;
-    gutter: number;
+    // gridDefinition: GridDefinition
   }
   
   export const getSchemaInfo = (schema: FormSchema, typesAllowed: string[], currentSessionIndex: number): SchemaInfo => {
@@ -26,15 +26,15 @@ export const sanitizeFieldsById = (fieldsById: string[], fields: FormFields, typ
     const fieldsById = sessions?.[sessionId]?.fieldsById || EMPTY_ARRAY;
     const submitLabel = sessions?.[sessionId]?.submit?.label;
     const hiddenButton = sessions?.[sessionId]?.hiddenButton || false;
-    const gutter = sessions?.[sessionId]?.gutter || 0;
     const fields = schema?.fields || EMPTY_OBJECT;
-    
+    // const gridDefinition = sessions?.[sessionId]?.gridDefinition || EMPTY_OBJECT;
+   
     return {
       fields,
       fieldsById: sanitizeFieldsById(fieldsById, fields, typesAllowed),
       submitLabel,
       sessionsById,
       hiddenButton,
-      gutter
+      // gridDefinition
     };
   };

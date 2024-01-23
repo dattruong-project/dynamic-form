@@ -1,7 +1,6 @@
 import { Radio, RadioProps } from "antd";
 import React, { useState } from "react";
 import { FormFieldProps } from "../../../form-builder";
-import { useFormContext } from "../../../form-controller";
 
 interface RadioComponentProps {
     id: string;
@@ -13,11 +12,13 @@ interface RadioComponentProps {
 type RadioType = RadioComponentProps & FormFieldProps & RadioProps;
 
 const RadioComponent: React.FC<RadioType> = ({ id, value, onChange, onBlur, propRef, defaultValue,
-    disabledField,...rest }) => {
+    disabledField,
+    componentDidMount,
+    componentDidUpdate,
+    componentWillUnMount,
+    ...rest }) => {
 
     const [selectedValue, setSelectedValue] = useState(defaultValue);
-    const context = useFormContext();
-
     const handleChange = (radio) => {
         const updatedOptions = [...value];
         const optionValue = radio.target.value;
@@ -26,7 +27,6 @@ const RadioComponent: React.FC<RadioType> = ({ id, value, onChange, onBlur, prop
             selected: radio.target.value === option.value,
         }));
         setSelectedValue(optionValue);
-        // context.setValue(id)
         onChange(updatedOptionsWithSelection);
     };
 

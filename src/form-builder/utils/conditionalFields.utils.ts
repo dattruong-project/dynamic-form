@@ -57,7 +57,7 @@ export const filterDependentsFieldsById = ({
   errors,
 }: FilterDependentsFieldsById) => {
   return fieldsById.reduce((acc, fieldId) => {
-    const { dependsOn } = fields[fieldId];
+    const { dependsOn } = fields?.[fieldId];
     if (!dependsOn) {
       return [...acc, fieldId];
     }
